@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import "~/index.css";
+import NavBar from './components/Navigation/Navigation';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -8,7 +9,7 @@ function App() {
   return (
     <>
       <div>
-        <h1 className="text-3xl font-bold text-red-500">Hello Tailwind!</h1>
+        <NavBar onSearch={() => {}}/>
         <Outlet/>
       </div>
     </>
