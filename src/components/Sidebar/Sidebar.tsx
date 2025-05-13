@@ -21,7 +21,7 @@ const Sidebar = () => {
     }
   }
   return (
-    <div className="h-full w-16 bg-gray-800 bg-opacity-70 flex flex-col items-center py-6">
+    <div className="h-full w-16 bg-gray-800 bg-opacity-70 flex flex-col items-center py-6 rounded-3xl">
       <div className="rounded-full bg-gray-700 p-1 mb-8">
         <img src={avatar} alt="User profile" className="h-8 w-8 rounded-full" />
       </div>

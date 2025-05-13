@@ -1,22 +1,25 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import "~/index.css";
-import NavBar from './components/Navigation/Navigation';
-import BackgroundWeather from './pages/PageBackground/BackgroundWeather';
+import NavBar from "./components/Navigation/Navigation";
+import BackgroundWeather from "./pages/PageBackground/BackgroundWeather";
+import { WeatherProvider } from "./context/WeatherContext";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-      <BackgroundWeather>
-        <div className="relative z-10">
-          <NavBar onSearch={() => {}} />
-          <Outlet />
-        </div>
-      </BackgroundWeather>
+      <WeatherProvider>
+        <BackgroundWeather>
+          <div className="relative z-10">
+            <NavBar/>
+            <Outlet />
+          </div>
+        </BackgroundWeather>
+      </WeatherProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

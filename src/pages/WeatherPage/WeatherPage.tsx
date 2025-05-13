@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import { fetchWeatherByCity } from "~/api/OpenWeatherMapApi";
-import searchIcon from "~/assets/search.png";
-import SearchBar from "~/components/SearchBar/SearchBar";
 import WeatherCard from "~/components/WeatherCard/WeatherCard";
 import MainWeatherInfo from "../MainWeatherInfo/MainWeatherInfo";
 import DailyForecast from "~/components/DailyForecast/DailyForecast";
@@ -12,18 +8,7 @@ import Sidebar from "~/components/Sidebar/Sidebar";
 import NavBar from "~/components/Navigation/Navigation";
 
 const WeatherPage = () => {
-  const [weatherData, setWeatherData] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
-  const handleSearch = async (city: string) => {
-    try {
-      const data = await fetchWeatherByCity(city);
-      setWeatherData(data);
-      setError(null);
-    } catch (error) {
-      setError("Failed to fetch weather data");
-      console.error(error);
-    }
-  };
+
   return (
     <div className="relative w-full h-screen  text-white overflow-hidden">
       <div className="relative z-10 h-full w-[80%] mx-auto px-4 py-4 flex flex-col">
