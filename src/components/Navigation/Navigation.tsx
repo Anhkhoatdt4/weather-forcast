@@ -1,3 +1,4 @@
+import { MapPin } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface NavBarProps {
@@ -5,27 +6,41 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onSearch }) => {
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState('New York');
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSearch = () => {
     if (city.trim()) {
       onSearch(city);
+      setIsEditing(false);
     }
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', padding: '10px', background: '#333', color: '#fff' }}>
-      <h1 style={{ margin: '0 20px', fontSize: '24px' }}>Weather App</h1>
-      <input
-        type="text"
-        placeholder="Search city..."
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        style={{ flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-      />
+    <div className="flex items-center px-5 py-2 bg-black/50 text-white relative z-20">
+      <MapPin className="mr-2 text-white" />
+
+      {!isEditing ? (
+        <span
+          className="cursor-pointer font-semibold"
+          onClick={() => setIsEditing(true)}
+        >
+          {city}
+        </span>
+      ) : (
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          className="px-2 py-1 rounded border border-gray-300 text-black text-sm"
+          autoFocus
+        />
+      )}
+
       <button
         onClick={handleSearch}
-        style={{ marginLeft: '10px', padding: '8px 16px', background: '#007bff', color: '#fff', border: 'none', borderRadius: '4px' }}
+        className="ml-3 px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 text-sm"
       >
         Search
       </button>

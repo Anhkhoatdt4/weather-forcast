@@ -12,7 +12,7 @@ const DailyForecast = () => {
   ];
 
   return (
-    <div className="absolute top-4 right-4 bg-gray-800 bg-opacity-70 rounded-lg p-4 w-32">
+    <div className="absolute top-[150px] h-[450px] right-12 bg-gray-800 bg-opacity-70 rounded-lg p-4 w-[320px] max-h-[500px]">
       <div className="grid grid-cols-5 gap-2">
         {days.map((day, index) => (
           <div key={index} className={`text-center ${day.name === 'SUN' ? 'text-white' : 'text-gray-400'}`}>

@@ -1,42 +1,49 @@
-import React, { useState } from 'react'
-import { fetchWeatherByCity } from '~/api/OpenWeatherMapApi';
-import searchIcon from '~/assets/search.png';
-import SearchBar from '~/components/SearchBar/SearchBar';
-import WeatherCard from '~/components/WeatherCard/WeatherCard';
-import MainWeatherInfo from '../MainWeatherInfo/MainWeatherInfo';
-import DailyForecast from '~/components/DailyForecast/DailyForecast';
-import ActivitiesSection from '~/components/Activity/ActivitiesSection';
-import HourlyForecast from '~/components/HourlyForecast/HourlyForecast';
-import BackgroundWeather from '../PageBackground/BackgroundWeather';
-import Sidebar from '~/components/Sidebar/Sidebar';
+import React, { useState } from "react";
+import { fetchWeatherByCity } from "~/api/OpenWeatherMapApi";
+import searchIcon from "~/assets/search.png";
+import SearchBar from "~/components/SearchBar/SearchBar";
+import WeatherCard from "~/components/WeatherCard/WeatherCard";
+import MainWeatherInfo from "../MainWeatherInfo/MainWeatherInfo";
+import DailyForecast from "~/components/DailyForecast/DailyForecast";
+import ActivitiesSection from "~/components/Activity/ActivitiesSection";
+import HourlyForecast from "~/components/HourlyForecast/HourlyForecast";
+import BackgroundWeather from "../PageBackground/BackgroundWeather";
+import Sidebar from "~/components/Sidebar/Sidebar";
+import NavBar from "~/components/Navigation/Navigation";
 
 const WeatherPage = () => {
   const [weatherData, setWeatherData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const handleSearch = async (city: string) => {
-    try{
+    try {
       const data = await fetchWeatherByCity(city);
       setWeatherData(data);
       setError(null);
-    }
-     catch (error) {
-      setError('Failed to fetch weather data');
+    } catch (error) {
+      setError("Failed to fetch weather data");
       console.error(error);
-  }
+    }
   };
   return (
-    <div className='relative w-full h-screen bg-gradient-to-br from-gray-700 to-gray-9000 text-white overflow-hidden'>
-      <div className='relative z-10 h-full max-w-4xl mx-auto px-4 py-4 flex flex-col'>
-        <MainWeatherInfo/>
-        <DailyForecast/>
-        <ActivitiesSection/>
-        <HourlyForecast/>
+    <div className="relative w-full h-screen  text-white overflow-hidden">
+      <div className="relative z-10 h-full w-[80%] mx-auto px-4 py-4 flex flex-col">
+        <div className="flex">
+          <MainWeatherInfo />
+        </div>
+        <div className="flex items-center justify-between ml-12">
+           <Sidebar />
+           <div className="flex flex-col items-center mr-[380px]">
+            <div className="flex items-center justify-center">
+              <ActivitiesSection />
+              <DailyForecast />
+            </div>
+            <HourlyForecast />
+          </div>
+        </div>
       </div>
-      <BackgroundWeather/>
-      <Sidebar/>
+     
     </div>
-  )
-
+  );
 };
 
-export default WeatherPage
+export default WeatherPage;
