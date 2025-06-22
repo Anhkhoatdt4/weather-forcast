@@ -47,6 +47,11 @@ const backgroundData: BackgroundData[] = [
 ];
 
 export const getBackgroundImageFromWeather = (apiMain: string) => {
-    const background = backgroundData.find((weatherD) => weatherD.apiMain === apiMain);
+    // console.log('apiMain nhận vào:', apiMain);
+    const background = backgroundData.find((weatherD) => {
+        // console.log('So sánh với:', weatherD.apiMain);
+        return weatherD.apiMain === apiMain;
+    });
+    // console.log('Kết quả tìm thấy:', background);
     return background?.image;
 };

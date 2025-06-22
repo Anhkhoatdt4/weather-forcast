@@ -5,8 +5,8 @@ import snowIcon from '~/assets/snow.png';
 import drizzleIcon from '~/assets/drizzle.png';
 import thunderstormIcon from '~/assets/thunderstorm.jpg';
 import mistIcon from '~/assets/mist.jpg';
+let apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 export const fetchWeatherByCity = async (city : string) => {
-    const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     const response = await fetch(url);
     if (!response.ok) {
@@ -17,6 +17,14 @@ export const fetchWeatherByCity = async (city : string) => {
     
     return data;
 }
+
+export const fetchForecastByCity = async (city: string) => {
+    const API_KEY = apiKey;
+    const BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast';
+    const response = await fetch(`${BASE_URL}?q=${city}&units=metric&appid=${API_KEY}`);
+    if (!response.ok) throw new Error('Failed to fetch forecast data');
+    return response.json();
+};
 
 export const allWeatherIcons: Record<string, string> = {
   "01d": clearIcon,

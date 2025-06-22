@@ -1,10 +1,32 @@
 import React from 'react'
 import ActivityCard from './ActivityCard';
 import { getActivitiesByWeather } from '~/data/activity_Data';
+import { useWeather } from '~/context/WeatherContext';
 
 const ActivitiesSection = () => {
-
-    const activities = getActivitiesByWeather('cloudy', 'Hue');
+  
+  const convertWeatherToActivity = (weather: string) => {
+    switch (weather) {
+      case 'Clear':
+        return 'sunny';
+      case 'Clouds':
+        return 'cloudy';
+      case 'Rain':
+        return 'rainy';
+      case 'Snow':
+        return 'snowy';
+      case 'Drizzle':
+        return 'drizzle';
+      case 'Thunderstorm':
+        return 'thunderstorm';
+      default:
+        return 'clear'; // Default to clear if no match
+    }
+  }
+  
+    const { weatherData, city } = useWeather();
+    const weatherMain = weatherData?.weather?.[0]?.main || 'Clear';
+    const activities = getActivitiesByWeather(convertWeatherToActivity(weatherMain), city);
     console.log('activities', activities);
     
   return (

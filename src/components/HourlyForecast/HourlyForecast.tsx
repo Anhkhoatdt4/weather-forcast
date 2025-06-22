@@ -1,15 +1,47 @@
-import React from 'react'
+import React from 'react';
+import { useWeather } from '~/context/WeatherContext';
+
+const getWeatherIcon = (main: string) => {
+  switch (main) {
+    case 'Clear':
+      return (
+        <svg className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth={2} />
+        </svg>
+      );
+    case 'Clouds':
+      return (
+        <svg className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+        </svg>
+      );
+    case 'Rain':
+      return (
+        <svg className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      );
+    default:
+      return (
+        <svg className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth={2} />
+        </svg>
+      );
+  }
+};
 
 const HourlyForecast = () => {
-  const hourlyData = [
-    { time: '10AM', temp: '26°', icon: 'cloud' },
-    { time: '12PM', temp: '28°', icon: 'cloud-sun' },
-    { time: '2PM', temp: '22°', icon: 'cloud-rain' },
-    { time: '4PM', temp: '18°', icon: 'cloud' },
-    { time: '6PM', temp: '20°', icon: 'cloud' },
-    { time: '8PM', temp: '26°', icon: 'cloud-rain' },
-    { time: '10PM', temp: '16°', icon: 'cloud-rain' }
-  ];
+  const { forecastData, error } = useWeather();
+
+  if (error) return <p className="text-red-500">{error}</p>;
+  if (!forecastData) return <p>Loading...</p>;
+
+  // Lấy 7 mốc giờ đầu tiên trong forecast
+  const hourlyData = forecastData.list.slice(0, 7).map((item: any) => ({
+    time: new Date(item.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    temp: `${Math.round(item.main.temp)}°`,
+    icon: getWeatherIcon(item.weather[0].main),
+  }));
 
   return (
     <div className="bg-gray-800 bg-opacity-70 rounded-lg p-4 w-full">
@@ -19,7 +51,6 @@ const HourlyForecast = () => {
         </svg>
         <h3 className="text-sm font-medium">24-hour forecast</h3>
       </div>
-      
       <div className="relative mt-6">
         <svg className="w-full h-12" viewBox="0 0 350 40">
           <path 
@@ -29,30 +60,11 @@ const HourlyForecast = () => {
             strokeWidth="2"
           />
         </svg>
-
         <div className="grid grid-cols-7 gap-4 mt-4">
-          {hourlyData.map((hour, index) => (
+          {hourlyData.map((hour : any, index : number) => (
             <div key={index} className="text-center">
               <div className="text-xs">{hour.temp}</div>
-              
-              <div className="my-2">
-                {hour.icon === 'cloud' && (
-                  <svg className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-                  </svg>
-                )}
-                {hour.icon === 'cloud-sun' && (
-                  <svg className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
-                )}
-                {hour.icon === 'cloud-rain' && (
-                  <svg className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
-                )}
-              </div>
-              
+              <div className="my-2">{hour.icon}</div>
               <div className="text-xs text-gray-400">{hour.time}</div>
             </div>
           ))}
@@ -60,6 +72,6 @@ const HourlyForecast = () => {
       </div>
     </div>
   );
-}
+};
 
-export default HourlyForecast
+export default HourlyForecast;

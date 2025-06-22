@@ -11,6 +11,7 @@ const BackgroundWeather: React.FC<{ children: React.ReactNode }> = ({ children }
     useEffect(() => {
     if (weatherData && weatherData.weather && weatherData.weather.length > 0){
         const weatherMain = weatherData.weather[0].main;
+        console.log('weatherMain:', weatherMain);
         const pageBackground = String(getBackgroundImageFromWeather(weatherMain)) || defaultBackground;
         setBackground(pageBackground);
     }
