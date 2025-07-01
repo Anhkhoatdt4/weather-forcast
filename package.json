@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.6",
+    "cesium": "^1.131.0",
+    "globe.gl": "^2.42.0",
     "lucide-react": "^0.510.0",
     "path-browserify": "^1.0.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.0"
+    "react-router-dom": "^7.6.0",
+    "three": "^0.178.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -23,6 +26,7 @@
     "@types/path-browserify": "^1.0.3",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@types/three": "^0.178.0",
     "@vitejs/plugin-react": "^4.4.1",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.25.0",

@@ -5,9 +5,11 @@ import WeatherIcon from '../common/WeatherIcon';
 import ExploreIcon from '../common/ExploreIcon';
 import CitiesIcon from '../common/CitiesIcon';
 import SettingsIcon from '../common/SettingIcon';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
       const [activeItem, setActiveItem] = useState<number | null>(null);
+      const navigate = useNavigate();
   const menuItems = [
     { icon: <WeatherIcon />, label: 'Weather' },
     { icon: <ExploreIcon />, label: 'Explore' },
@@ -18,7 +20,23 @@ const Sidebar = () => {
     if (activeItem === index) { return ;}
     else {
         setActiveItem(index);
+        switch (index) {
+            case 0:
+                navigate('/weather');
+                break;
+            case 1:
+                navigate('/explore');
+                break;
+            case 2:
+                navigate('/cities');
+                break;
+            case 3:
+                navigate('/settings');
+                break;
+            default:
+                break;
     }
+  }
   }
   return (
     <div className="h-full w-16 bg-gray-800 bg-opacity-70 flex flex-col items-center py-6 rounded-3xl">

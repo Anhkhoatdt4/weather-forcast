@@ -17,7 +17,7 @@ const BackgroundWeather: React.FC<{ children: React.ReactNode }> = ({ children }
     }
     }, [weatherData])
   return ( 
-<div className="relative w-full h-screen overflow-hidden">
+<div className="relative w-full min-h-screen overflow-auto">
   <img
     src= {background || defaultBackground}
     alt="Mist background"

@@ -6,15 +6,15 @@ import BackgroundWeather from "./pages/PageBackground/BackgroundWeather";
 import { WeatherProvider } from "./context/WeatherContext";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [titleHeader, setTitleHeader] = useState<string | undefined>(undefined);
 
   return (
     <>
       <WeatherProvider>
         <BackgroundWeather>
           <div className="relative z-10">
-            <NavBar/>
-            <Outlet />
+            <NavBar titleHeader={titleHeader}/>
+            <Outlet context={{setTitleHeader}} />
           </div>
         </BackgroundWeather>
       </WeatherProvider>

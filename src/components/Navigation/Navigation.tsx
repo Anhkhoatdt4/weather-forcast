@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { useWeather } from '~/context/WeatherContext';
 
 interface NavBarProps {
+  titleHeader ?: string;
 }
 
-const NavBar: React.FC<NavBarProps> = () => {
+const NavBar: React.FC<NavBarProps> = ({titleHeader}) => {
  const {city, setCity} = useWeather();
 
  const [inputCity, setInputCity] = useState(city);
@@ -21,6 +22,7 @@ const NavBar: React.FC<NavBarProps> = () => {
     <div className="flex items-center px-5 py-2 bg-black/50 text-white relative z-20 pl-[90px]">
       <MapPin className="mr-2 text-white" />
 
+    
       {!isEditing ? (
         <span
           className="cursor-pointer font-semibold hover:font-bold"
@@ -49,6 +51,9 @@ const NavBar: React.FC<NavBarProps> = () => {
       >
         Search
       </button>
+
+       {titleHeader && <h1 className="ml-[400px] mr-4 font-bold">{titleHeader}</h1>}
+
     </div>
   );
 };
