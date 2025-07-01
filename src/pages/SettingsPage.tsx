@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import React, { useState } from 'react';
 import { Settings, Thermometer, Globe, Bell, Sun, Moon, MapPin, Clock, Palette } from 'lucide-react';
 
@@ -8,6 +10,10 @@ const SettingsPage: React.FC = () => {
   const [theme, setTheme] = useState('light');
   const [autoLocation, setAutoLocation] = useState(true);
   const [timeFormat, setTimeFormat] = useState('24h');
+    const { setTitleHeader } = useOutletContext<{ setTitleHeader: (title: string) => void }>();
+    useEffect(() => {
+      setTitleHeader("");
+    }, []);
 
   return (
     <div className="min-h-0 pb-40 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4">

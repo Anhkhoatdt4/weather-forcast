@@ -1,4 +1,5 @@
-import React from 'react';
+import { useOutletContext } from "react-router-dom";
+import React, { useEffect } from 'react';
 import { Sun, CloudRain, Cloud, CloudSun, MapPin } from 'lucide-react';
 
 const featuredCities = [
@@ -10,9 +11,28 @@ const featuredCities = [
 ];
 
 const CitiesPage: React.FC = () => {
+    const { setTitleHeader } = useOutletContext<{ setTitleHeader: (title: string) => void }>();
+  useEffect(() => {
+    setTitleHeader("");
+  }, []);
+   useEffect(() => {
+    document.body.style.background = 'black'; // Set màu nền cho video nổi bật
+
+    return () => {
+      document.body.style.background = '';
+    };
+  }, []);
   return (
     <div className="relative w-full min-h-screen pb-40 bg-gradient-to-br from-blue-100 to-blue-300 overflow-auto">
       {/* Hiệu ứng mây động nền */}
+       <video
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        src="/856572-uhd_3840_2160_25fps.mp4" // Thay bằng đường dẫn video của bạn
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
       <div className="absolute top-0 left-0 w-full h-40 pointer-events-none animate-clouds-move opacity-30 z-0">
         <svg width="100%" height="100%" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill="#fff" fillOpacity="0.7" d="M0,160L60,170C120,180,240,200,360,197.3C480,195,600,169,720,154.7C840,140,960,138,1080,154.7C1200,171,1320,213,1380,234.7L1440,256L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z" />
@@ -25,19 +45,19 @@ const CitiesPage: React.FC = () => {
           {featuredCities.map((city, idx) => (
             <div
               key={city.name}
-              className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-2xl group animate-fade-in"
+              className="bg-white/30 rounded-2xl shadow-lg p-6 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-2xl group animate-fade-in"
               style={{ animationDelay: `${idx * 0.1}s` }}
             >
               <div className="mb-2 w-24 h-24 rounded-xl overflow-hidden shadow-lg">
                 <img src={city.image} alt={city.name} className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300" />
               </div>
-              <div className="mb-2">{city.icon}</div>
+              <div className="mb-2 font-bold drop-shadow-lg">{city.icon}</div>
               <div className="flex items-center mb-1">
                 <MapPin className="h-4 w-4 text-blue-500 mr-1" />
                 <span className="font-semibold text-lg text-blue-800 group-hover:text-blue-600 transition">{city.name}</span>
               </div>
               <div className="text-2xl font-bold text-gray-800 mb-1">{city.temp}°C</div>
-              <div className="text-sm text-gray-500">{city.weather}</div>
+              <div className="text-sm text-gray-800">{city.weather}</div>
             </div>
           ))}
         </div>

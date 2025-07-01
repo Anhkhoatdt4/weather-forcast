@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +9,11 @@ const HomePage: React.FC = () => {
     "istockphoto-1198474553-640_adpp_is.mp4",
     "istockphoto-864526000-640_adpp_is.mp4",
   ]
+
+  const { setTitleHeader } = useOutletContext<{ setTitleHeader: (title: string) => void }>();
+  useEffect(() => {
+    setTitleHeader("");
+  }, []);
 
   const currentHour = new Date().getHours();
   const selectedVideo = videoSources[currentHour % videoSources.length];
