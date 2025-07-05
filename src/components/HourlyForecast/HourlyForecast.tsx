@@ -32,16 +32,36 @@ const getWeatherIcon = (main: string) => {
 
 const HourlyForecast = () => {
   const { forecastData, error } = useWeather();
-
+  console.log("Hourly Forecast Data: ", forecastData);
   if (error) return <p className="text-red-500">{error}</p>;
   if (!forecastData) return <p>Loading...</p>;
 
-  // Lấy 7 mốc giờ đầu tiên trong forecast
-  const hourlyData = forecastData.list.slice(0, 7).map((item: any) => ({
-    time: new Date(item.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    temp: `${Math.round(item.main.temp)}°`,
-    icon: getWeatherIcon(item.weather[0].main),
-  }));
+  // Nếu weatherHistory chỉ có 1 phần tử (1 ngày), tạo giả 7 mốc giờ trong ngày đó
+  let hourlyData = [];
+  if (forecastData.weatherHistory.length === 1) {
+    const item = forecastData.weatherHistory[0];
+    // Tạo 7 mốc giờ giả định: 0h, 3h, 6h, 9h, 12h, 15h, 18h
+    hourlyData = Array.from({ length: 7 }).map((_, idx) => {
+      const hour = idx * 3;
+      // Tạo đối tượng Date từ mảng date
+      const jsDate = item.date ? new Date(item.date[0], item.date[1] - 1, item.date[2], hour) : new Date();
+      return {
+        time: jsDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        temp: item.temperature !== undefined ? `${Math.round(item.temperature)}°` : '--',
+        icon: getWeatherIcon(item.weatherMain),
+      };
+    });
+  } else {
+    // Nếu có nhiều phần tử, lấy 7 phần tử đầu
+    hourlyData = forecastData.weatherHistory.slice(0, 7).map((item: any) => {
+      const jsDate = item.date ? new Date(item.date[0], item.date[1] - 1, item.date[2]) : new Date();
+      return {
+        time: jsDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        temp: item.temperature !== undefined ? `${Math.round(item.temperature)}°` : '--',
+        icon: getWeatherIcon(item.weatherMain),
+      };
+    });
+  }
 
   return (
     <div className="bg-gray-800 bg-opacity-70 rounded-lg p-4 w-full">

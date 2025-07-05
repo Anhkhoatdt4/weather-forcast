@@ -5,25 +5,28 @@ import snowIcon from '~/assets/snow.png';
 import drizzleIcon from '~/assets/drizzle.png';
 import thunderstormIcon from '~/assets/thunderstorm.jpg';
 import mistIcon from '~/assets/mist.jpg';
-let apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
-export const fetchWeatherByCity = async (city : string) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    const response = await fetch(url);
+
+
+// Call backend API to get weather by city (backend will handle cache & OpenWeatherMap)
+
+const baseURL = import.meta.env.VITE_API_BASE_URL || '/api';
+
+export const fetchWeatherByCity = async (city: string) => {
+    const response = await fetch(`${baseURL}/weather/${city}`);
     if (!response.ok) {
         throw new Error('Failed to fetch weather data');
     }
     const data = await response.json();
-    console.log('Weather data:', data);
-    
+    console.log("Weather data:", data);
     return data;
-}
+};
 
 export const fetchForecastByCity = async (city: string) => {
-    const API_KEY = apiKey;
-    const BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast';
-    const response = await fetch(`${BASE_URL}?q=${city}&units=metric&appid=${API_KEY}`);
+    const response = await fetch(`${baseURL}/weather/${city}?forecast=true`);
     if (!response.ok) throw new Error('Failed to fetch forecast data');
-    return response.json();
+    const data = await response.json();
+    console.log("Forecast data:", data);
+    return data;
 };
 
 export const allWeatherIcons: Record<string, string> = {
