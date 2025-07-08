@@ -1,40 +1,52 @@
 import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import React, { useState } from 'react';
-import { Settings, Thermometer, Globe, Bell, Sun, Moon, MapPin, Clock, Palette } from 'lucide-react';
+import React, { useState } from "react";
+import {
+  Settings,
+  Thermometer,
+  Globe,
+  Bell,
+  Sun,
+  Moon,
+  MapPin,
+  Clock,
+  Palette,
+} from "lucide-react";
 
 const SettingsPage: React.FC = () => {
-  const [tempUnit, setTempUnit] = useState('celsius');
-  const [language, setLanguage] = useState('vi');
+  const [tempUnit, setTempUnit] = useState("celsius");
+  const [language, setLanguage] = useState("vi");
   const [notifications, setNotifications] = useState(true);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
   const [autoLocation, setAutoLocation] = useState(true);
-  const [timeFormat, setTimeFormat] = useState('24h');
-    const { setTitleHeader } = useOutletContext<{ setTitleHeader: (title: string) => void }>();
-    useEffect(() => {
-      setTitleHeader("");
-    }, []);
+  const [timeFormat, setTimeFormat] = useState("24h");
+  const { setTitleHeader } = useOutletContext<{
+    setTitleHeader: (title: string) => void;
+  }>();
+  useEffect(() => {
+    setTitleHeader("");
+  }, []);
 
   return (
     <div className="min-h-0 pb-40 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500 rounded-full mb-4">
             <Settings className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-gray-800 mb-2">Cài đặt</h1>
-          <p className="text-lg text-gray-600">Tùy chỉnh trải nghiệm thời tiết của bạn</p>
+          <p className="text-lg text-gray-600">
+            Tùy chỉnh trải nghiệm thời tiết của bạn
+          </p>
         </div>
 
-        {/* Settings Grid */}
         <div className="grid gap-6 md:grid-cols-2">
-          
-          {/* Temperature Unit */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center mb-4">
               <Thermometer className="w-6 h-6 text-red-500 mr-3" />
-              <h3 className="text-xl font-semibold text-gray-800">Đơn vị nhiệt độ</h3>
+              <h3 className="text-xl font-semibold text-gray-800">
+                Đơn vị nhiệt độ
+              </h3>
             </div>
             <div className="space-y-3">
               <label className="flex items-center cursor-pointer">
@@ -42,7 +54,7 @@ const SettingsPage: React.FC = () => {
                   type="radio"
                   name="tempUnit"
                   value="celsius"
-                  checked={tempUnit === 'celsius'}
+                  checked={tempUnit === "celsius"}
                   onChange={(e) => setTempUnit(e.target.value)}
                   className="w-4 h-4 text-blue-600"
                 />
@@ -53,7 +65,7 @@ const SettingsPage: React.FC = () => {
                   type="radio"
                   name="tempUnit"
                   value="fahrenheit"
-                  checked={tempUnit === 'fahrenheit'}
+                  checked={tempUnit === "fahrenheit"}
                   onChange={(e) => setTempUnit(e.target.value)}
                   className="w-4 h-4 text-blue-600"
                 />
@@ -62,13 +74,12 @@ const SettingsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Language */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center mb-4">
               <Globe className="w-6 h-6 text-green-500 mr-3" />
               <h3 className="text-xl font-semibold text-gray-800">Ngôn ngữ</h3>
             </div>
-            <select 
+            <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -80,12 +91,13 @@ const SettingsPage: React.FC = () => {
             </select>
           </div>
 
-          {/* Notifications */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center">
                 <Bell className="w-6 h-6 text-yellow-500 mr-3" />
-                <h3 className="text-xl font-semibold text-gray-800">Thông báo thời tiết</h3>
+                <h3 className="text-xl font-semibold text-gray-800">
+                  Thông báo thời tiết
+                </h3>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -97,10 +109,11 @@ const SettingsPage: React.FC = () => {
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
               </label>
             </div>
-            <p className="text-sm text-gray-600">Nhận thông báo về thời tiết khắc nghiệt và cập nhật hàng ngày</p>
+            <p className="text-sm text-gray-600">
+              Nhận thông báo về thời tiết khắc nghiệt và cập nhật hàng ngày
+            </p>
           </div>
 
-          {/* Theme */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center mb-4">
               <Palette className="w-6 h-6 text-purple-500 mr-3" />
@@ -112,7 +125,7 @@ const SettingsPage: React.FC = () => {
                   type="radio"
                   name="theme"
                   value="light"
-                  checked={theme === 'light'}
+                  checked={theme === "light"}
                   onChange={(e) => setTheme(e.target.value)}
                   className="w-4 h-4 text-blue-600"
                 />
@@ -124,7 +137,7 @@ const SettingsPage: React.FC = () => {
                   type="radio"
                   name="theme"
                   value="dark"
-                  checked={theme === 'dark'}
+                  checked={theme === "dark"}
                   onChange={(e) => setTheme(e.target.value)}
                   className="w-4 h-4 text-blue-600"
                 />
@@ -134,12 +147,13 @@ const SettingsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Auto Location */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center">
                 <MapPin className="w-6 h-6 text-blue-500 mr-3" />
-                <h3 className="text-xl font-semibold text-gray-800">Vị trí tự động</h3>
+                <h3 className="text-xl font-semibold text-gray-800">
+                  Vị trí tự động
+                </h3>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -151,14 +165,17 @@ const SettingsPage: React.FC = () => {
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
               </label>
             </div>
-            <p className="text-sm text-gray-600">Tự động phát hiện vị trí của bạn để hiển thị thời tiết chính xác</p>
+            <p className="text-sm text-gray-600">
+              Tự động phát hiện vị trí của bạn để hiển thị thời tiết chính xác
+            </p>
           </div>
 
-          {/* Time Format */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center mb-4">
               <Clock className="w-6 h-6 text-indigo-500 mr-3" />
-              <h3 className="text-xl font-semibold text-gray-800">Định dạng thời gian</h3>
+              <h3 className="text-xl font-semibold text-gray-800">
+                Định dạng thời gian
+              </h3>
             </div>
             <div className="space-y-3">
               <label className="flex items-center cursor-pointer">
@@ -166,7 +183,7 @@ const SettingsPage: React.FC = () => {
                   type="radio"
                   name="timeFormat"
                   value="24h"
-                  checked={timeFormat === '24h'}
+                  checked={timeFormat === "24h"}
                   onChange={(e) => setTimeFormat(e.target.value)}
                   className="w-4 h-4 text-blue-600"
                 />
@@ -177,7 +194,7 @@ const SettingsPage: React.FC = () => {
                   type="radio"
                   name="timeFormat"
                   value="12h"
-                  checked={timeFormat === '12h'}
+                  checked={timeFormat === "12h"}
                   onChange={(e) => setTimeFormat(e.target.value)}
                   className="w-4 h-4 text-blue-600"
                 />
@@ -187,19 +204,18 @@ const SettingsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Save Button */}
         <div className="mt-8 text-center">
           <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform transition duration-200 hover:scale-105">
             Lưu cài đặt
           </button>
         </div>
 
-        {/* Additional Info */}
         <div className="mt-8 bg-blue-50 rounded-xl p-6 border border-blue-100">
           <h4 className="font-semibold text-blue-800 mb-2">Lưu ý</h4>
           <p className="text-blue-700 text-sm">
-            Các cài đặt sẽ được lưu trữ cục bộ và áp dụng cho tất cả các phiên sử dụng tiếp theo. 
-            Một số thay đổi có thể yêu cầu tải lại trang để có hiệu lực.
+            Các cài đặt sẽ được lưu trữ cục bộ và áp dụng cho tất cả các phiên
+            sử dụng tiếp theo. Một số thay đổi có thể yêu cầu tải lại trang để
+            có hiệu lực.
           </p>
         </div>
       </div>

@@ -35,12 +35,9 @@ const HourlyForecast = () => {
   console.log("Hourly Forecast Data: ", forecastData);
   if (error) return <p className="text-red-500">{error}</p>;
   if (!forecastData) return <p>Loading...</p>;
-
-  // Nếu weatherHistory chỉ có 1 phần tử (1 ngày), tạo giả 7 mốc giờ trong ngày đó
   let hourlyData = [];
   if (forecastData.weatherHistory.length === 1) {
     const item = forecastData.weatherHistory[0];
-    // Tạo 7 mốc giờ giả định: 0h, 3h, 6h, 9h, 12h, 15h, 18h
     hourlyData = Array.from({ length: 7 }).map((_, idx) => {
       const hour = idx * 3;
       // Tạo đối tượng Date từ mảng date

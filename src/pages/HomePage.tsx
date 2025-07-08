@@ -20,7 +20,6 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
-      {/* Video nền */}
       <video
         autoPlay
         loop
@@ -31,9 +30,7 @@ const HomePage: React.FC = () => {
         <source src={selectedVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      {/* Overlay mờ để tăng độ nổi cho chữ */}
       <div className="absolute inset-0 bg-black bg-opacity-0 z-10" />
-      {/* Nội dung chữ */}
       <div className="relative z-20 flex flex-col items-center">
         <h1 className="text-4xl font-bold mb-4 text-white drop-shadow-lg">Welcome to Weather App</h1>
         <p className="mb-8 text-lg text-white text-center max-w-xl drop-shadow">

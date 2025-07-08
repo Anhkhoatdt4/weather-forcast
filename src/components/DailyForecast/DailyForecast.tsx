@@ -18,7 +18,6 @@ const getWeatherIcon = (main: string) => {
 
 const DailyForecast = () => {
   const { weatherData, error } = useWeather();
-    console.log("Concac " , weatherData);
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
@@ -28,7 +27,6 @@ const DailyForecast = () => {
 
   const weatherHistory = weatherData.weatherHistory[0] || {};
 
-  // Hiển thị ngày hiện tại
   const today = {
     name: new Date(weatherHistory.date ? `${weatherHistory.date[0]}-${weatherHistory.date[1]}-${weatherHistory.date[2]}` : Date.now()).toLocaleDateString("en-US", {
       weekday: "short",
@@ -50,8 +48,7 @@ const DailyForecast = () => {
             <div className="text-xs mt-1">{today.temp}</div>
           </div>
         </div>
-
-        {/* Không có dt, chỉ có date, nên hiển thị ngày/tháng/năm */}
+        
         <div className="mt-4 text-center text-xs text-gray-300">
           {weatherHistory.date ? `${weatherHistory.date[2]}/${weatherHistory.date[1]}/${weatherHistory.date[0]}` : ''}
         </div>
